@@ -61,9 +61,167 @@
         .hadith-card.empty .prophet-saying { border-right: 6px solid #aaaaaa; }
     
         @media (max-width:700px){.hadith-grid{grid-template-columns:1fr}.prophet-saying{font-size:1rem}}
+        /* ========== FLOATING NAVIGATION MENU ========== */
+        .nav-toggle {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background: #2c5f2d;
+            color: #f7d44a;
+            border: none;
+            border-radius: 50%;
+            font-size: 28px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            z-index: 9999;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s ease;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .nav-toggle:hover {
+            transform: scale(1.05);
+            background: #1e4a1f;
+        }
+        
+        /* The overlay menu */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 9998;
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .nav-overlay.active {
+            display: flex;
+        }
+        
+        .nav-menu {
+            background: #fffef7;
+            border-radius: 30px;
+            padding: 30px 20px;
+            max-width: 420px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            text-align: right;
+        }
+        .nav-menu h2 {
+            color: #2c5f2d;
+            text-align: center;
+            border-bottom: 2px solid #f0ecdc;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        .nav-close {
+            float: left;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #888;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+        .nav-close:hover {
+            color: #c0392b;
+        }
+        
+        .nav-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-menu li {
+            margin-bottom: 4px;
+        }
+        .nav-menu .vol-title {
+            font-weight: bold;
+            color: #2c5f2d;
+            font-size: 1.2rem;
+            padding: 10px 0 5px 0;
+            border-bottom: 1px dashed #e0d6b0;
+            margin-top: 10px;
+        }
+        .nav-menu .vol-title:first-of-type {
+            margin-top: 0;
+        }
+        .nav-menu .sec-link {
+            display: block;
+            padding: 12px 20px;
+            background: #f9f6e8;
+            border-radius: 40px;
+            margin: 6px 0 6px 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: 0.2s;
+            border-right: 4px solid #2a7faa;
+            text-align: right;
+        }
+        .nav-menu .sec-link:hover {
+            background: #f0ecdc;
+            transform: translateX(-5px);
+        }
+        /* Color coding for the navigation links */
+        .nav-menu .sec-link[data-topic="aqeedah"] { border-right-color: #2c9c2c; }
+        .nav-menu .sec-link[data-topic="behavior"] { border-right-color: #2a7faa; }
+        .nav-menu .sec-link[data-topic="adab"] { border-right-color: #e67e22; }
+        .nav-menu .sec-link[data-topic="worship"] { border-right-color: #9b59b6; }
+        .nav-menu .sec-link[data-topic="muamalat"] { border-right-color: #c0392b; }
+        
+        @media (max-width: 600px) {
+            .nav-toggle { width: 55px; height: 55px; font-size: 24px; bottom: 20px; right: 20px; }
+            .nav-menu { padding: 20px 15px; }
+            .nav-menu .sec-link { font-size: 1rem; padding: 10px 15px; margin-left: 10px; }
+        }
     </style>
 </head>
 <body>
+<!-- Floating Navigation Button -->
+<button class="nav-toggle" id="navToggle" aria-label="Open Navigation">
+    📚
+</button>
+
+<!-- Navigation Overlay -->
+<div class="nav-overlay" id="navOverlay">
+    <div class="nav-menu">
+        <button class="nav-close" id="navClose">✕</button>
+        <h2>📖 فهرس الكتاب</h2>
+        <ul>
+            <!-- الجزء الأول -->
+            <li class="vol-title">📚 الجزء الأول</li>
+            <li><a href="#s1-a" class="sec-link" data-topic="aqeedah">قسم أ (العقيدة والإيمان)</a></li>
+            <li><a href="#s1-b" class="sec-link" data-topic="behavior">قسم ب (السلوك والأخلاق)</a></li>
+            <li><a href="#s1-c" class="sec-link" data-topic="muamalat">قسم ج (المعاملات)</a></li>
+
+            <!-- الجزء الثاني -->
+            <li class="vol-title">📚 الجزء الثاني</li>
+            <li><a href="#s2-a" class="sec-link" data-topic="behavior">قسم أ (السلوك والأخلاق)</a></li>
+            <li><a href="#s2-b" class="sec-link" data-topic="aqeedah">قسم ب (العقيدة والإيمان)</a></li>
+            <li><a href="#s2-c" class="sec-link" data-topic="worship">قسم ج (العبادات)</a></li>
+
+            <!-- الجزء الثالث -->
+            <li class="vol-title">📚 الجزء الثالث</li>
+            <li><a href="#s3-a" class="sec-link" data-topic="worship">قسم أ (العبادات)</a></li>
+            <li><a href="#s3-b" class="sec-link" data-topic="aqeedah">قسم ب (العقيدة والإيمان)</a></li>
+            <li><a href="#s3-c" class="sec-link" data-topic="behavior">قسم ج (السلوك والأخلاق)</a></li>
+        </ul>
+    </div>
+</div>    
 
 <div class="book-header">
     <h1>📖 أدبي من السنة</h1>
@@ -81,7 +239,7 @@
 <!-- Volume 1 -->
 <div id="vol1" class="section-title">📚 الجزء الأول</div>
 
-<div style="text-align: center;">
+<div id="s1-a" style="text-align: center;">
     <div class="section-title">📚 قسم أ</div>
 </div>
 
@@ -108,7 +266,7 @@
     <div class="hadith-card" data-topic="muamalat"><div class="inner-frame"><div class="hadith-number">٢٠</div><div class="hadith-content"><div class="prophet-saying">قال رسول الله ﷺ: «مَنْ غَشَّنَا فَلَيْسَ مِنَّا»</div><div class="source">📚 رواه مسلم (رقم 101)</div></div></div></div>
 </div>
 
-<div style="text-align: center;">
+<div id="s1-b" style="text-align: center;">
     <div class="section-title">📚 قسم ب</div>
 </div>
 
@@ -135,7 +293,7 @@
     <div class="hadith-card" data-topic="adab"><div class="inner-frame"><div class="hadith-number">٢٠</div><div class="prophet-saying">قال رسول الله ﷺ: «الرجل على دين خليله»</div><div class="source">📚 رواه أبو داود</div></div></div>
 </div>
 
-<div style="text-align: center;">
+<div id="s1-c" style="text-align: center;">
     <div class="section-title">📚 قسم ج</div>
 </div>
 
@@ -164,7 +322,7 @@
 
 <!-- Volume 2 -->
 <div id="vol2" class="section-title">📚 الجزء الثاني</div>
-<div style="text-align: center;">
+<div id="s2-a" style="text-align: center;">
     <div class="section-title">📚 قسم أ</div>
 </div>
 
@@ -192,7 +350,7 @@
 </div>
 
 <!-- قسم ب -->
-<div style="text-align: center;">
+<div id="s2-b" style="text-align: center;">
     <div class="section-title">📚 قسم ب</div>
 </div>
 
@@ -219,7 +377,7 @@
     <div class="hadith-card" data-topic="muamalat"><div class="inner-frame"><div class="hadith-number">٢٠</div><div class="hadith-content"><div class="prophet-saying">قال رسول الله ﷺ: «لعن الله من لعن والديه»</div><div class="source">📚 رواه مسلم</div></div></div></div>
 </div>
 <!-- قسم ج -->
-<div style="text-align: center;">
+<div id="s2-c" style="text-align: center;">
     <div class="section-title">📚 قسم ج</div>
 </div>
 
@@ -249,7 +407,7 @@
 <!-- Volume 3 -->
 <div id="vol3" class="section-title">📚 الجزء الثالث</div>
     <div style="text-align: center;">
-    <div class="section-title">📚 قسم أ</div>
+    <div id="s3-a" class="section-title">📚 قسم أ</div>
 </div>
 
 <div class="hadith-grid">
@@ -275,7 +433,7 @@
     <div class="hadith-card" data-topic="behavior"><div class="inner-frame"><div class="hadith-number">٢٠</div><div class="hadith-content"><div class="prophet-saying">قال رسول الله ﷺ: «إياكم والظلم فإن الظلم ظلمات يوم القيمة»</div><div class="source">📚 رواه أحمد</div></div></div></div>
 </div>
 
-<div style="text-align: center;">
+<div id="s3-b" style="text-align: center;">
     <div class="section-title">📚 قسم ب</div>
 </div>
 
@@ -302,7 +460,7 @@
     <div class="hadith-card" data-topic="behavior"><div class="inner-frame"><div class="hadith-number">٢٠</div><div class="hadith-content"><div class="prophet-saying">قال رسول الله ﷺ: «أربع إذا كن فيك فلا عليك ما فاتك من الدنيا: حفظ أمانة، وصدق حديث، وحسن خليقة، وعفة في طُعمة»</div><div class="source">📚 رواه أحمد</div></div></div></div>
 </div>
 
-<div style="text-align: center;">
+<div id="s3-c" style="text-align: center;">
     <div class="section-title">📚 قسم ج</div>
 </div>
 
@@ -330,6 +488,47 @@
 </div>
 
 <script>
+    // --- Navigation Menu Logic ---
+    const toggleBtn = document.getElementById('navToggle');
+    const overlay = document.getElementById('navOverlay');
+    const closeBtn = document.getElementById('navClose');
+
+    function openNav() {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+    function closeNav() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    toggleBtn.addEventListener('click', openNav);
+    closeBtn.addEventListener('click', closeNav);
+
+    // Close overlay when clicking on the background (the blurry area)
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            closeNav();
+        }
+    });
+
+    // Close overlay when a link is clicked, and smooth scroll to target
+    document.querySelectorAll('.sec-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Stop the hash jump
+            const targetId = this.getAttribute('href').substring(1); // Remove the '#'
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                // Close the menu
+                closeNav();
+                // Smooth scroll to the target after a tiny delay (so the menu closes first)
+                setTimeout(() => {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300);
+            }
+        });
+    });
+
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('service-worker.js').then(()=>console.log('Service Worker registered for index'));
     }
