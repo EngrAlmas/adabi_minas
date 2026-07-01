@@ -1,4 +1,4 @@
-const CACHE_NAME = 'adabi-minas-sunnah';
+const CACHE_NAME = 'adabi-minas-sunnah-v2';
 const urlsToCache = ['.', 'index.html', 'manifest.json'];
 
 self.addEventListener('install', event => {
